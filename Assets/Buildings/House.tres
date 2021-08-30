@@ -1,0 +1,35 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://SRC/Building/Building.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Icons/Building/People/Home.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+cost = 5
+texture = ExtResource( 2 )
+building = "house"
+description = "A simple suburban house."
+build_stats = {
+"properties": {
+"food": 0,
+"people": 0,
+"polution": 3,
+"water": 0
+}
+}
+passive_stats = {
+"properties": {
+"happyness": 0,
+"money": 0,
+"people": 0,
+"power_used": 4
+}
+}
+turn_stat = {
+"properties": {
+"food": -4,
+"money": 2,
+"polution": 2,
+"water": -4
+}
+}

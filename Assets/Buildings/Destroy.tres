@@ -1,0 +1,35 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://SRC/Building/Building.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Icons/Building/People/Destroy.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+cost = 0
+texture = ExtResource( 2 )
+building = "Construction site"
+description = "Temporary constructtion while removing a building "
+build_stats = {
+"properties": {
+"food": 0,
+"polution": 0,
+"water": 0
+}
+}
+passive_stats = {
+"properties": {
+"happyness": 0,
+"money": 0,
+"people": 0,
+"power_max": 0,
+"power_used": 0
+}
+}
+turn_stat = {
+"properties": {
+"food": 0,
+"polution": 0,
+"water": 0
+},
+"remove": 2
+}
