@@ -26,8 +26,6 @@ func _set_building(value: String) -> void:
 		ground_place.show()
 		texture = load("res://Assets/Previews/Ground.png")
 		snap_offset = Vector2(42,41.5)
-	elif building == "destroy":
-		pass
 	else:
 		snap_offset = Vector2(14,15)
 		build_data = load(building)
@@ -51,26 +49,28 @@ func _unhandled_input(event: InputEvent) -> void:
 		if building == "ground":
 			var snapped := ground_place.world_to_map(get_global_mouse_position())
 			if place_ground(snapped):
-				emit_signal("placed", "ground", null)
+				emit_signal("placed", "ground", null, null)
 		elif building == "destroy":
 			pass
 		elif building != "":
 			var snapped := ground.world_to_map(get_global_mouse_position())
-			if place_building(snapped):
-				emit_signal("placed", building, build_data)
+			var old := place_building(snapped)
+			if old:
+				emit_signal("placed", building, build_data, old)
 
 
-func place_building(point: Vector2) -> bool:
-	var coord = Vector3(point.x-(point.y-(int(point.y)&1))/2, 0, point.y)
-	coord.y = -coord.x-coord.z
+func place_building(point: Vector2) -> Building:
+	var coord = Vector3(int(point.x-(point.y-(int(point.y)&1))/2), 0, int(point.y))
+	coord.y = int(-coord.x-coord.z)
 	var node_name := str(coord.x)+"_"+str(coord.y)+"_"+str(coord.z)
 	if not buildings.has_node(node_name):
-		return false
-	var node := buildings.get_node(node_name)
-	if node.data.building == "empty":
+		return null
+	var node: BuildingNode = buildings.get_node(node_name)
+	if xor(node.data.building == "empty", build_data.building == "Construction site"):
+		var old := node.data
 		node.data = build_data
-		return true
-	return false
+		return old
+	return null
 
 
 func place_ground(point: Vector2) -> bool:
@@ -86,8 +86,8 @@ func place_ground(point: Vector2) -> bool:
 					var p := snapped+off_set
 					ground.set_cellv(p, 0)
 					var new_building = BuildingNode.new()
-					var coord = Vector3(p.x-(p.y-(int(p.y)&1))/2, 0, p.y)
-					coord.y = -coord.x-coord.z
+					var coord = Vector3(int(p.x-(p.y-(int(p.y)&1))/2), 0, int(p.y))
+					coord.y = int(-coord.x-coord.z)
 					new_building.name = str(coord.x)+"_"+str(coord.y)+"_"+str(coord.z)
 					buildings.call_deferred("add_child", new_building)
 					new_building.position = ground.map_to_world(p) + Vector2(14,15)
@@ -96,3 +96,6 @@ func place_ground(point: Vector2) -> bool:
 		return true
 	return false
 
+
+func xor(a: bool, b: bool) -> bool:
+	return ((not (a and b)) and (a or b))

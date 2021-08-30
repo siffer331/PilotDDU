@@ -9,7 +9,9 @@ cost = 0
 texture = ExtResource( 2 )
 building = "Construction site"
 description = "Temporary constructtion while removing a building "
+tags = [  ]
 build_stats = {
+"destroy": 2,
 "properties": {
 "food": 0,
 "polution": 0,
@@ -30,6 +32,5 @@ turn_stat = {
 "food": 0,
 "polution": 0,
 "water": 0
-},
-"remove": 2
+}
 }

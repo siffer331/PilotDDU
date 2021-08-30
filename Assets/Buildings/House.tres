@@ -9,6 +9,7 @@ cost = 5
 texture = ExtResource( 2 )
 building = "house"
 description = "A simple suburban house."
+tags = [ "suburban" ]
 build_stats = {
 "properties": {
 "food": 0,
@@ -18,10 +19,19 @@ build_stats = {
 }
 }
 passive_stats = {
+"local_boost": {
+"happyness": {
+"factor": 0,
+"min": 1,
+"range": 1,
+"tag": "suburban"
+}
+},
 "properties": {
-"happyness": 0,
+"happyness": 2,
 "money": 0,
-"people": 0,
+"people": 4,
+"power_max": 0,
 "power_used": 4
 }
 }

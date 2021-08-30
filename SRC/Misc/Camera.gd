@@ -12,6 +12,8 @@ var focus_point: Vector2
 func _process(delta: float) -> void:
 	if is_panning:
 		position += focus_point - get_global_mouse_position()
+		position.x = clamp(position.x, -400, 400)
+		position.y = clamp(position.y, -400, 400)
 
 
 func _unhandled_input(event: InputEvent) -> void:

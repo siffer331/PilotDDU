@@ -9,6 +9,7 @@ cost = 10
 texture = ExtResource( 2 )
 building = "Forrest"
 description = "A small patch off trees. Good for the environment and locals."
+tags = [  ]
 build_stats = {
 "properties": {
 "food": 0,
@@ -17,6 +18,14 @@ build_stats = {
 }
 }
 passive_stats = {
+"local_boost": {
+"happyness": {
+"factor": 2,
+"min": 2,
+"range": 2,
+"tag": "suburban"
+}
+},
 "properties": {
 "happyness": 0,
 "money": 0,
