@@ -1,0 +1,67 @@
+Residential:
+	House:
+		some people
+		high food/water/power consumption per person
+		low polution
+		high happiness
+		group happyness bonus
+	Apertment:
+		a lot of people
+		low food/water/power consumption per person
+		medium pollution
+		low happiness
+	Mansion:
+		some people
+		very high food/water/power consumption per person
+		medium pollution
+		very high happiness
+		high group happyness bonus
+	
+Power:
+	Windmill:
+		high initial polution
+		high noise
+		a lot of power
+	Solar panels:
+		low initial polution
+		medium power
+	Coal plant:
+		High Polution
+		High power
+		reduces happyness in nearby residential buildings
+		Reqiures people
+		takes some water
+
+Food/Water:
+	Livestock:
+		requies people
+		medium polution
+		a lot of food
+	farm:
+		requires people
+		small polution
+		medium food
+		requires water
+	eco farm:
+		requires people
+		removes some polution
+		medium food
+		requires a lot water
+	Water cleaning plant:
+		generates water
+		requires powe
+		the more water nearby the more production.
+		
+Boosts:
+	Park:
+		removes some polution
+		residential happyness boost
+	Hospital:
+		boosts number of people
+		requires people
+		high power consumption
+	Battery bank:
+		boosts powergen
+	
+
+
