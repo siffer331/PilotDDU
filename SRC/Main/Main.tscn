@@ -143,7 +143,7 @@ cell_size = Vector2( 84, 64 )
 cell_custom_transform = Transform2D( 70, 23, 14, 69, -14, 0 )
 format = 1
 
-[node name="Buildings" type="Node2D" parent="."]
+[node name="Buildings" type="YSort" parent="."]
 
 [node name="Camera" type="Camera2D" parent="."]
 current = true
@@ -166,9 +166,10 @@ day_label_path = NodePath("../Canvas/UI/Split/Space/Label")
 ui_paths = {
 "day": NodePath("../Canvas/UI/Split/Top/Split/Day"),
 "food": NodePath("../Canvas/UI/Split/Top/Split/Food"),
-"happyness": NodePath("../Canvas/UI/Split/Top/Split/Happynes"),
+"happyness_max": NodePath("../Canvas/UI/Split/Top/Split/Happynes"),
 "money": NodePath("../Canvas/UI/Split/Top/Split/Money"),
-"people": NodePath("../Canvas/UI/Split/Top/Split/People"),
+"people_max": NodePath("../Canvas/UI/Split/Top/Split/PeopleMax"),
+"people_used": NodePath("../Canvas/UI/Split/Top/Split/PeopleUsed"),
 "polution": NodePath("../Canvas/UI/Split/Top/Split/Polution"),
 "power_max": NodePath("../Canvas/UI/Split/Top/Split/PowerMax"),
 "power_used": NodePath("../Canvas/UI/Split/Top/Split/PowerUsed"),
@@ -176,6 +177,7 @@ ui_paths = {
 "water": NodePath("../Canvas/UI/Split/Top/Split/Water")
 }
 buildings_path = NodePath("../Buildings")
+popup_path = NodePath("../Canvas/UI/Center/Popup")
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 
@@ -195,6 +197,8 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Day = SubResource( 4 )
+
+[connection signal="disabled" from="Builder" to="Manager" method="_on_Builder_disabled"]
 [connection signal="placed" from="Builder" to="Manager" method="_on_Builder_placed"]
 [connection signal="pressed" from="Canvas/UI/Split/Bottom/Margin/Split/Menu1" to="Manager" method="_on_Menu_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="Canvas/UI/Split/Bottom/Margin/Split/Menu2" to="Manager" method="_on_Menu_pressed" binds= [ 1 ]]
@@ -204,6 +208,5 @@ anims/Day = SubResource( 4 )
 [connection signal="pressed" from="Canvas/UI/Split/Bottom/Margin/Split/Destroy" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Destroy.tres", "../Canvas/UI/Split/Bottom/Margin/Split/Destroy/Selected" ]]
 [connection signal="pressed" from="Canvas/UI/Split/Bottom/Margin/Split/NexTurn" to="Manager" method="_on_NexTurn_pressed"]
 [connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu1/House" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/House.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu1/House/Selected" ]]
-[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu1/Trees" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Trees.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu1/Trees/Selected" ]]
 
 [editable path="Canvas/UI"]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://SRC/Building/Building.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Icons/Building/People/Forrest.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Icons/Building/Boosts/Forrest.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -10,6 +10,7 @@ texture = ExtResource( 2 )
 building = "Forrest"
 description = "A small patch off trees. Good for the environment and locals."
 tags = [  ]
+can_disable = false
 build_stats = {
 "properties": {
 "food": 0,
@@ -19,7 +20,7 @@ build_stats = {
 }
 passive_stats = {
 "local_boost": {
-"happyness": {
+"happyness_max": {
 "factor": 2,
 "min": 2,
 "range": 2,

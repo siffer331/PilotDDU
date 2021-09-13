@@ -10,6 +10,7 @@ texture = ExtResource( 2 )
 building = "Construction site"
 description = "Temporary constructtion while removing a building "
 tags = [  ]
+can_disable = false
 build_stats = {
 "destroy": 2,
 "properties": {
@@ -19,12 +20,22 @@ build_stats = {
 }
 }
 passive_stats = {
-"properties": {
+"generating": {
 "happyness": 0,
-"money": 0,
 "people": 0,
-"power_max": 0,
-"power_used": 0
+"power": 0
+},
+"local_boost": {
+"happyness_max": {
+"factor": 0,
+"min": -2,
+"range": 2,
+"tag": "suburban"
+}
+},
+"using": {
+"people": 0,
+"power": 0
 }
 }
 turn_stat = {

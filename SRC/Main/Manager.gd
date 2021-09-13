@@ -11,7 +11,9 @@ export var animator_path: NodePath
 export var day_label_path: NodePath
 export var ui_paths: Dictionary
 export var buildings_path: NodePath
+export var popup_path: NodePath
 
+onready var popup: Popup = get_node(popup_path)
 onready var buildings := get_node(buildings_path)
 onready var menu_split = get_node(menu_split_path)
 onready var building_menu_margin = get_node(building_menu_margin_path)
@@ -24,19 +26,17 @@ var animator: AnimationPlayer
 
 var resources := {
 	"money": 50,
-	"power_used": 0,
-	"power_max": 0,
 	"food": 0,
 	"water": 0,
 	"polution": 0,
-	"people": 0,
-	"happyness": 0,
 }
 
 var passive := {
+	"power_used": 0,
 	"power_max": 0,
-	"people": 0,
-	"happyness": 0,
+	"happyness_max": 0,
+	"people_max": 0,
+	"people_used": 0,
 }
 
 var score := 0
@@ -59,6 +59,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if builder.building != "":
 			builder.building = ""
 			ground_selected.hide()
+			selected.hide()
 		elif selected_menu >= 0:
 			building_menu.hide()
 			menu_split.get_child(selected_menu*2+1).get_node("Selected").hide()
@@ -78,9 +79,16 @@ func calculate_passive() -> void:
 		passive[value] = 0
 	for building in buildings.get_children():
 		building = building as BuildingNode
-		var pos = string_to_vec(building.name)
+		if not building.active:
+			continue
+		for key in building.data.passive_stats["generating"]:
+			passive[key+"_max"] += building.data.passive_stats["generating"][key]
+		for key in building.data.passive_stats["using"]:
+			passive[key+"_used"] += building.data.passive_stats["using"][key]
 		if not "local_boost" in building.data.passive_stats:
 			continue
+		#Calculate boosts
+		var pos = string_to_vec(building.name)
 		for local_bonus in building.data.passive_stats["local_boost"]:
 			var data = building.data.passive_stats["local_boost"][local_bonus]
 			for x in range(-data["range"], data["range"]+1):
@@ -99,8 +107,12 @@ func calculate_passive() -> void:
 
 func draw_ui() -> void:
 	var data = resources.duplicate()
+	for key in passive:
+		data[key] = passive[key]
 	data["day"] = day
 	data["score"] = score
+	for key in passive:
+		data[key] = passive[key]
 	for value in data:
 		var val = data[value]
 		if value in passive:
@@ -109,21 +121,39 @@ func draw_ui() -> void:
 
 
 func _on_NexTurn_pressed() -> void:
-	day += 1
-	day_label.text = "Day " + str(day)
-	animator.play("Day")
+	var old := resources.duplicate()
 	for building in buildings.get_children():
 		building = building as BuildingNode
+		if not building.active:
+			continue
 		for data in building.data.turn_stat["properties"]:
 			resources[data] += building.data.turn_stat["properties"][data]
-		building.turn()
+	var succesfull = true
+	if resources["polution"] < 0:
+		resources["polution"] = 0
 	for data in resources:
 		if resources[data] < 0:
-			resources[data] = 0
-	if day%5 == 0:
-		self.ground += 1
-	calculate_passive()
-	draw_ui()
+			succesfull = false
+			break
+	for key in ["power", "people"]:
+		if passive[key+"_used"] > passive[key+"_max"]:
+			succesfull = false
+			break
+	if not succesfull:
+		resources = old
+		popup.popup()
+	else:
+		for building in buildings.get_children():
+			building = building as BuildingNode
+			if building.active:
+				building.turn()
+		day += 1
+		day_label.text = "Day " + str(day)
+		animator.play("Day")
+		if day%5 == 0:
+			self.ground += 1
+		calculate_passive()
+		draw_ui()
 
 
 func _on_Placeable_pressed(placeable: String, selected_path: String) -> void:
@@ -149,10 +179,6 @@ func _on_Builder_placed(placed: String, data: Building, old: Building) -> void:
 	else:
 		for property in data.build_stats["properties"]:
 			resources[property] += data.build_stats["properties"][property]
-		for property in data.passive_stats["properties"]:
-			resources[property] += data.passive_stats["properties"][property]
-		for property in old.passive_stats["properties"]:
-			resources[property] -= old.passive_stats["properties"][property]
 		resources.money -= data.cost
 	if not can_afford(placed):
 		selected.hide()
@@ -189,4 +215,10 @@ func string_to_vec(val: String) -> Vector3:
 
 func vec_to_string(val: Vector3) -> String:
 	return str(int(val.x)) + "_" + str(int(val.y)) + "_" + str(int(val.z))
+
+
+func _on_Builder_disabled() -> void:
+	calculate_passive()
+	draw_ui()
+
 

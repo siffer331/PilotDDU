@@ -10,36 +10,38 @@ texture = ExtResource( 2 )
 building = "house"
 description = "A simple suburban house."
 tags = [ "suburban" ]
+can_disable = true
 build_stats = {
 "properties": {
 "food": 0,
-"people": 0,
-"polution": 3,
+"polution": 5,
 "water": 0
 }
 }
 passive_stats = {
+"generating": {
+"happyness": 2,
+"people": 4,
+"power": 0
+},
 "local_boost": {
-"happyness": {
+"happyness_max": {
 "factor": 0,
-"min": 1,
+"min": 2,
 "range": 1,
 "tag": "suburban"
 }
 },
-"properties": {
-"happyness": 2,
-"money": 0,
-"people": 4,
-"power_max": 0,
-"power_used": 4
+"using": {
+"people": 0,
+"power": 2
 }
 }
 turn_stat = {
 "properties": {
-"food": -4,
-"money": 2,
+"food": -2,
+"money": 4,
 "polution": 2,
-"water": -4
+"water": -2
 }
 }

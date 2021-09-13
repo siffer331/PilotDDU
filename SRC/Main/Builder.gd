@@ -2,6 +2,7 @@ class_name Builder
 extends Sprite
 
 signal placed(placed, data)
+signal disabled
 
 var snap_offset: Vector2
 onready var ground_place: TileMap = get_node("../GroundPlace")
@@ -57,15 +58,26 @@ func _unhandled_input(event: InputEvent) -> void:
 			var old := place_building(snapped)
 			if old:
 				emit_signal("placed", building, build_data, old)
+	if building == "" and event is InputEventMouseButton and event.doubleclick:
+		var snapped := ground.world_to_map(get_global_mouse_position())
+		var node := get_building(snapped)
+		if node and node.data.can_disable:
+			node.active = !node.active
 
 
-func place_building(point: Vector2) -> Building:
+func get_building(point: Vector2) -> BuildingNode:
 	var coord = Vector3(int(point.x-(point.y-(int(point.y)&1))/2), 0, int(point.y))
 	coord.y = int(-coord.x-coord.z)
 	var node_name := str(coord.x)+"_"+str(coord.y)+"_"+str(coord.z)
 	if not buildings.has_node(node_name):
 		return null
-	var node: BuildingNode = buildings.get_node(node_name)
+	return buildings.get_node(node_name) as BuildingNode
+
+
+func place_building(point: Vector2) -> Building:
+	var node: BuildingNode = get_building(point)
+	if node == null:
+		return null
 	if xor(node.data.building == "empty", build_data.building == "Construction site"):
 		var old := node.data
 		node.data = build_data

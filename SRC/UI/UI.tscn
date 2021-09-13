@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Assets/UI/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/Icons/Power.png" type="Texture" id=2]
@@ -19,7 +19,19 @@
 [ext_resource path="res://Assets/Icons/Building/Arrow.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Icons/Building/People/Home.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Icons/Building/Destroy.png" type="Texture" id=19]
-[ext_resource path="res://Assets/Icons/Building/People/Forrest.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Icons/Building/Boosts/Forrest.png" type="Texture" id=20]
+[ext_resource path="res://Assets/UI/Popup.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Icons/PowerMenu.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Icons/Building/Resources/EcoFarm.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Icons/Building/People/Villa.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Icons/Building/People/Appartment.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Icons/Building/Power/CoalIcon.png" type="Texture" id=26]
+[ext_resource path="res://Assets/Icons/Building/Power/WindmillIcon.png" type="Texture" id=27]
+[ext_resource path="res://Assets/Icons/Building/Resources/Livestock.png" type="Texture" id=28]
+[ext_resource path="res://Assets/Icons/Building/Resources/WaterCleaning.png" type="Texture" id=29]
+[ext_resource path="res://Assets/Icons/Building/Boosts/HospitalIcon.png" type="Texture" id=30]
+[ext_resource path="res://Assets/Icons/Building/Resources/FarmIcon.png" type="Texture" id=31]
+[ext_resource path="res://Assets/Icons/Building/Boosts/PowerPlantIcon.png" type="Texture" id=32]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.227451, 0.211765, 0.368627, 1 )
@@ -38,6 +50,10 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 0.141176, 0.12549, 0.270588, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 8
+font_data = ExtResource( 15 )
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -138,37 +154,63 @@ margin_bottom = 18.0
 rect_min_size = Vector2( 3, 0 )
 color = Color( 0.0941176, 0.0901961, 0.145098, 1 )
 
-[node name="FoodIcon" type="TextureRect" parent="Split/Top/Split"]
+[node name="PeopleIcon" type="TextureRect" parent="Split/Top/Split"]
 margin_left = 114.0
-margin_right = 132.0
+margin_right = 129.0
 margin_bottom = 18.0
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 
-[node name="Food" type="Label" parent="Split/Top/Split"]
-margin_left = 133.0
-margin_right = 151.0
+[node name="PeopleUsed" type="Label" parent="Split/Top/Split"]
+margin_left = 130.0
+margin_right = 150.0
 margin_bottom = 18.0
-rect_min_size = Vector2( 18, 0 )
-text = "13"
+rect_min_size = Vector2( 20, 0 )
+text = "23"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slash2" type="Label" parent="Split/Top/Split"]
+margin_left = 151.0
+margin_right = 159.0
+margin_bottom = 18.0
+text = "/"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PeopleMax" type="Label" parent="Split/Top/Split"]
+margin_left = 160.0
+margin_right = 180.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 20, 0 )
+text = "41"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Spacer4" type="ColorRect" parent="Split/Top/Split"]
-margin_left = 152.0
-margin_right = 155.0
+margin_left = 181.0
+margin_right = 184.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 3, 0 )
 color = Color( 0.0941176, 0.0901961, 0.145098, 1 )
 
 [node name="WaterIcon" type="TextureRect" parent="Split/Top/Split"]
-margin_left = 156.0
-margin_right = 169.0
+margin_left = 185.0
+margin_right = 198.0
 margin_bottom = 18.0
 texture = ExtResource( 5 )
 
 [node name="Water" type="Label" parent="Split/Top/Split"]
-margin_left = 170.0
-margin_right = 188.0
+margin_left = 199.0
+margin_right = 217.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 18, 0 )
 text = "5"
@@ -176,43 +218,43 @@ align = 1
 valign = 1
 
 [node name="Spacer5" type="ColorRect" parent="Split/Top/Split"]
-margin_left = 189.0
-margin_right = 192.0
+margin_left = 218.0
+margin_right = 221.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 3, 0 )
 color = Color( 0.0941176, 0.0901961, 0.145098, 1 )
 
-[node name="PeopleIcon" type="TextureRect" parent="Split/Top/Split"]
-margin_left = 193.0
-margin_right = 208.0
+[node name="FoodIcon" type="TextureRect" parent="Split/Top/Split"]
+margin_left = 222.0
+margin_right = 240.0
 margin_bottom = 18.0
-texture = ExtResource( 6 )
+texture = ExtResource( 4 )
 
-[node name="People" type="Label" parent="Split/Top/Split"]
-margin_left = 209.0
-margin_right = 227.0
+[node name="Food" type="Label" parent="Split/Top/Split"]
+margin_left = 241.0
+margin_right = 259.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 18, 0 )
-text = "12"
+text = "13"
 align = 1
 valign = 1
 
 [node name="Spacer6" type="ColorRect" parent="Split/Top/Split"]
-margin_left = 228.0
-margin_right = 231.0
+margin_left = 260.0
+margin_right = 263.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 3, 0 )
 color = Color( 0.0941176, 0.0901961, 0.145098, 1 )
 
 [node name="PolutionIcon" type="TextureRect" parent="Split/Top/Split"]
-margin_left = 232.0
-margin_right = 249.0
+margin_left = 264.0
+margin_right = 281.0
 margin_bottom = 18.0
 texture = ExtResource( 7 )
 
 [node name="Polution" type="Label" parent="Split/Top/Split"]
-margin_left = 250.0
-margin_right = 268.0
+margin_left = 282.0
+margin_right = 300.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 18, 0 )
 text = "5"
@@ -220,21 +262,21 @@ align = 1
 valign = 1
 
 [node name="Spacer7" type="ColorRect" parent="Split/Top/Split"]
-margin_left = 269.0
-margin_right = 272.0
+margin_left = 301.0
+margin_right = 304.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 3, 0 )
 color = Color( 0.0941176, 0.0901961, 0.145098, 1 )
 
 [node name="HappynesIcon" type="TextureRect" parent="Split/Top/Split"]
-margin_left = 273.0
-margin_right = 291.0
+margin_left = 305.0
+margin_right = 323.0
 margin_bottom = 18.0
 texture = ExtResource( 8 )
 
 [node name="Happynes" type="Label" parent="Split/Top/Split"]
-margin_left = 292.0
-margin_right = 310.0
+margin_left = 324.0
+margin_right = 342.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 18, 0 )
 text = "17"
@@ -242,14 +284,14 @@ align = 1
 valign = 1
 
 [node name="Spacer8" type="ColorRect" parent="Split/Top/Split"]
-margin_left = 311.0
-margin_right = 314.0
+margin_left = 343.0
+margin_right = 346.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 3, 0 )
 color = Color( 0.0941176, 0.0901961, 0.145098, 1 )
 
 [node name="Control" type="Control" parent="Split/Top/Split"]
-margin_left = 315.0
+margin_left = 347.0
 margin_right = 376.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
@@ -401,6 +443,7 @@ __meta__ = {
 [node name="Icon" type="TextureRect" parent="Split/Bottom/Margin/Split/Menu2"]
 margin_right = 30.0
 margin_bottom = 33.0
+texture = ExtResource( 22 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -428,8 +471,12 @@ __meta__ = {
 }
 
 [node name="Icon" type="TextureRect" parent="Split/Bottom/Margin/Split/Menu3"]
-margin_right = 30.0
-margin_bottom = 33.0
+margin_left = 1.0
+margin_top = 2.0
+margin_right = 31.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 23 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -457,8 +504,12 @@ __meta__ = {
 }
 
 [node name="Icon" type="TextureRect" parent="Split/Bottom/Margin/Split/Menu4"]
-margin_right = 30.0
-margin_bottom = 33.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 31.0
+margin_bottom = 34.0
+mouse_filter = 2
+texture = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -609,14 +660,47 @@ custom_constants/margin_left = 4
 custom_constants/margin_bottom = 4
 
 [node name="Menu1" type="HBoxContainer" parent="BuildingMenu/Menu/Margin"]
+visible = false
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 68.0
+margin_right = 102.0
 margin_bottom = 37.0
 custom_constants/separation = 2
 
-[node name="House" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu1"]
+[node name="Appartment" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu1"]
 margin_right = 30.0
+margin_bottom = 33.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 11 )
+
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu1/Appartment"]
+visible = false
+margin_right = 30.0
+margin_bottom = 33.0
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu1/Appartment"]
+margin_left = 1.0
+margin_top = 3.0
+margin_right = 31.0
+margin_bottom = 36.0
+texture = ExtResource( 25 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer1" type="Control" parent="BuildingMenu/Menu/Margin/Menu1"]
+margin_left = 32.0
+margin_right = 32.0
+margin_bottom = 33.0
+
+[node name="House" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu1"]
+margin_left = 34.0
+margin_right = 64.0
 margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
@@ -632,27 +716,29 @@ __meta__ = {
 }
 
 [node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu1/House"]
-margin_right = 30.0
-margin_bottom = 33.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 31.0
+margin_bottom = 34.0
 texture = ExtResource( 18 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer" type="Control" parent="BuildingMenu/Menu/Margin/Menu1"]
-margin_left = 32.0
-margin_right = 32.0
+[node name="Spacer2" type="Control" parent="BuildingMenu/Menu/Margin/Menu1"]
+margin_left = 66.0
+margin_right = 66.0
 margin_bottom = 33.0
 
-[node name="Trees" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu1"]
-margin_left = 34.0
-margin_right = 64.0
+[node name="Villa" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu1"]
+margin_left = 68.0
+margin_right = 98.0
 margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
 
-[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu1/Trees"]
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu1/Villa"]
 visible = false
 margin_right = 30.0
 margin_bottom = 33.0
@@ -661,10 +747,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu1/Trees"]
-margin_right = 30.0
-margin_bottom = 33.0
-texture = ExtResource( 20 )
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu1/Villa"]
+margin_left = 1.0
+margin_top = 2.0
+margin_right = 31.0
+margin_bottom = 35.0
+texture = ExtResource( 24 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -673,18 +761,18 @@ __meta__ = {
 visible = false
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 68.0
+margin_right = 102.0
 margin_bottom = 37.0
 custom_constants/separation = 2
 
-[node name="Button" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu2"]
+[node name="Coal" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu2"]
 margin_right = 30.0
 margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
 
-[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Button"]
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Coal"]
 visible = false
 margin_right = 30.0
 margin_bottom = 33.0
@@ -693,19 +781,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Button"]
-margin_right = 30.0
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Coal"]
+margin_left = 1.0
+margin_right = 31.0
 margin_bottom = 33.0
+texture = ExtResource( 26 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer" type="Control" parent="BuildingMenu/Menu/Margin/Menu2"]
+[node name="Spacer1" type="Control" parent="BuildingMenu/Menu/Margin/Menu2"]
 margin_left = 32.0
 margin_right = 32.0
 margin_bottom = 33.0
 
-[node name="Button2" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu2"]
+[node name="Solarpanels" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu2"]
 margin_left = 34.0
 margin_right = 64.0
 margin_bottom = 33.0
@@ -713,7 +803,7 @@ texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
 
-[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Button2"]
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Solarpanels"]
 visible = false
 margin_right = 30.0
 margin_bottom = 33.0
@@ -722,9 +812,43 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Button2"]
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Solarpanels"]
+margin_left = 1.0
+margin_right = 31.0
+margin_bottom = 33.0
+texture = ExtResource( 22 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer2" type="Control" parent="BuildingMenu/Menu/Margin/Menu2"]
+margin_left = 66.0
+margin_right = 66.0
+margin_bottom = 33.0
+
+[node name="Windmill" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu2"]
+margin_left = 68.0
+margin_right = 98.0
+margin_bottom = 33.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 11 )
+
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Windmill"]
+visible = false
 margin_right = 30.0
 margin_bottom = 33.0
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Windmill"]
+margin_left = 1.0
+margin_top = 2.0
+margin_right = 31.0
+margin_bottom = 35.0
+texture = ExtResource( 27 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -733,18 +857,18 @@ __meta__ = {
 visible = false
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 68.0
+margin_right = 136.0
 margin_bottom = 37.0
 custom_constants/separation = 2
 
-[node name="Button" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu3"]
+[node name="Livestock" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu3"]
 margin_right = 30.0
 margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
 
-[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/Button"]
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/Livestock"]
 visible = false
 margin_right = 30.0
 margin_bottom = 33.0
@@ -753,19 +877,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/Button"]
-margin_right = 30.0
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/Livestock"]
+margin_left = 1.0
+margin_right = 31.0
 margin_bottom = 33.0
+texture = ExtResource( 28 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer" type="Control" parent="BuildingMenu/Menu/Margin/Menu3"]
+[node name="Spacer1" type="Control" parent="BuildingMenu/Menu/Margin/Menu3"]
 margin_left = 32.0
 margin_right = 32.0
 margin_bottom = 33.0
 
-[node name="Button2" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu3"]
+[node name="Farm" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu3"]
 margin_left = 34.0
 margin_right = 64.0
 margin_bottom = 33.0
@@ -773,7 +899,7 @@ texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
 
-[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/Button2"]
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/Farm"]
 visible = false
 margin_right = 30.0
 margin_bottom = 33.0
@@ -782,9 +908,76 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/Button2"]
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/Farm"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 31.0
+margin_bottom = 34.0
+texture = ExtResource( 31 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer2" type="Control" parent="BuildingMenu/Menu/Margin/Menu3"]
+margin_left = 66.0
+margin_right = 66.0
+margin_bottom = 33.0
+
+[node name="EcoFarm" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu3"]
+margin_left = 68.0
+margin_right = 98.0
+margin_bottom = 33.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 11 )
+
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/EcoFarm"]
+visible = false
 margin_right = 30.0
 margin_bottom = 33.0
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/EcoFarm"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 31.0
+margin_bottom = 34.0
+texture = ExtResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer3" type="Control" parent="BuildingMenu/Menu/Margin/Menu3"]
+margin_left = 100.0
+margin_right = 100.0
+margin_bottom = 33.0
+
+[node name="WaterCleaning" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu3"]
+margin_left = 102.0
+margin_right = 132.0
+margin_bottom = 33.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 11 )
+
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/WaterCleaning"]
+visible = false
+margin_right = 30.0
+margin_bottom = 33.0
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/WaterCleaning"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 31.0
+margin_bottom = 34.0
+texture = ExtResource( 29 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -793,18 +986,18 @@ __meta__ = {
 visible = false
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 68.0
+margin_right = 102.0
 margin_bottom = 37.0
 custom_constants/separation = 2
 
-[node name="Button" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu4"]
+[node name="Park" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu4"]
 margin_right = 30.0
 margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
 
-[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/Button"]
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/Park"]
 visible = false
 margin_right = 30.0
 margin_bottom = 33.0
@@ -813,19 +1006,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/Button"]
-margin_right = 30.0
-margin_bottom = 33.0
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/Park"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 31.0
+margin_bottom = 34.0
+texture = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer" type="Control" parent="BuildingMenu/Menu/Margin/Menu4"]
+[node name="Spacer1" type="Control" parent="BuildingMenu/Menu/Margin/Menu4"]
 margin_left = 32.0
 margin_right = 32.0
 margin_bottom = 33.0
 
-[node name="Button2" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu4"]
+[node name="Hospital" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu4"]
 margin_left = 34.0
 margin_right = 64.0
 margin_bottom = 33.0
@@ -833,7 +1029,7 @@ texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
 
-[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/Button2"]
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/Hospital"]
 visible = false
 margin_right = 30.0
 margin_bottom = 33.0
@@ -842,9 +1038,42 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/Button2"]
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/Hospital"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 31.0
+margin_bottom = 34.0
+texture = ExtResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer2" type="Control" parent="BuildingMenu/Menu/Margin/Menu4"]
+margin_left = 66.0
+margin_right = 66.0
+margin_bottom = 33.0
+
+[node name="PowerPlant" type="TextureButton" parent="BuildingMenu/Menu/Margin/Menu4"]
+margin_left = 68.0
+margin_right = 98.0
+margin_bottom = 33.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 11 )
+
+[node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/PowerPlant"]
+visible = false
 margin_right = 30.0
 margin_bottom = 33.0
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/PowerPlant"]
+margin_right = 30.0
+margin_bottom = 33.0
+texture = ExtResource( 32 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -858,3 +1087,51 @@ texture = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="Popup" parent="Center"]
+margin_left = 196.0
+margin_top = 94.0
+margin_right = 316.0
+margin_bottom = 194.0
+rect_min_size = Vector2( 120, 100 )
+
+[node name="Background" type="NinePatchRect" parent="Center/Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 21 )
+patch_margin_left = 13
+patch_margin_top = 13
+patch_margin_right = 13
+patch_margin_bottom = 13
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Center" type="CenterContainer" parent="Center/Popup/Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Split" type="VBoxContainer" parent="Center/Popup/Background/Center"]
+margin_left = 11.0
+margin_top = 39.0
+margin_right = 108.0
+margin_bottom = 60.0
+
+[node name="Label" type="Label" parent="Center/Popup/Background/Center/Split"]
+margin_right = 97.0
+margin_bottom = 21.0
+custom_fonts/font = SubResource( 4 )
+text = "You use too many resources
+try disabling buildings."
+align = 1

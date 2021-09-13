@@ -1,0 +1,48 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://SRC/Building/Building.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Icons/Building/Power/SolarPanels.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+cost = 0
+texture = ExtResource( 2 )
+building = ""
+description = ""
+tags = [  ]
+can_disable = true
+build_stats = {
+"destroy": 0,
+"properties": {
+"food": 0,
+"polution": 0,
+"water": 0
+}
+}
+passive_stats = {
+"generating": {
+"happyness": 0,
+"people": 0,
+"power": 0
+},
+"local_boost": {
+"happyness_max": {
+"factor": 0,
+"min": 0,
+"range": 2,
+"tag": "suburban"
+}
+},
+"using": {
+"people": 0,
+"power": 0
+}
+}
+turn_stat = {
+"properties": {
+"food": 0,
+"money": 0,
+"polution": 0,
+"water": 0
+}
+}
