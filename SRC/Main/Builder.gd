@@ -11,7 +11,7 @@ onready var buildings: Node2D = get_node("../Buildings")
 
 var building := "" setget _set_building
 var build_data: Building
-
+var r := 0
 
 func _ready() -> void:
 	ground_place.set_cellv(Vector2(0,0), 1)
@@ -21,6 +21,9 @@ func _ready() -> void:
 func _set_building(value: String) -> void:
 	building = value
 	ground_place.hide()
+	r = 0
+	for child in get_children():
+		child.queue_free()
 	if building == "":
 		texture = null
 	elif building == "ground":
@@ -29,9 +32,26 @@ func _set_building(value: String) -> void:
 		snap_offset = Vector2(42,41.5)
 	else:
 		snap_offset = Vector2(14,15)
-		build_data = load(building)
+		build_data = load(building) as Building
 		if build_data.texture:
 			texture = build_data.texture
+		for key in build_data.production_boost:
+			r = max(r, build_data.production_boost[key]["range"])
+		for key in build_data.local_boost:
+			var arr = build_data.local_boost[key]
+			if not arr is Array:
+				arr = [arr]
+			for data in arr:
+				r = max(r, data["range"])
+		for x in range(-r, r+1):
+			for y in range(-r, r+1):
+				var p := Vector3(x, y, -x-y)
+				if (x == 0 and y == 0) or abs(p.z) > r:
+					continue
+				var node = load("res://SRC/Misc/BoostIndicator.tscn").instance()
+				node.position.x = x*28+y*14
+				node.position.y = y*23
+				add_child(node)
 
 
 func _process(_delta: float) -> void:
@@ -40,9 +60,45 @@ func _process(_delta: float) -> void:
 			ground_place.world_to_map(get_global_mouse_position())
 		) + snap_offset
 	else:
+		var old := position
 		position = ground.map_to_world(
 			ground.world_to_map(get_global_mouse_position())
 		) + snap_offset
+		if (position-old).length_squared() > 4:
+			var i = 0
+			for child in get_children():
+				child.display("", 0)
+			for x in range(-r, r+1):
+				for y in range(-r, r+1):
+					var p := Vector3(x, y, -x-y)
+					if (x == 0 and y == 0) or abs(p.z) > r:
+						continue
+					get_child(i).display("", 0)
+					var point = ground.world_to_map(get_child(i).global_position)
+					var b: BuildingNode = get_building(point)
+					var dist = max(abs(p.x), max(abs(p.y), abs(p.z)))
+					for tag in build_data.production_boost:
+						var data = build_data.production_boost[tag]
+						if data["range"] < dist:
+							continue
+						if (b and tag in b.data.tags) or (not b and tag == "water"):
+							get_child(i).display(
+								data["value"],
+								data["min"] + (data["range"]-dist)*data["factor"]
+							)
+					for tag in build_data.local_boost:
+						var arr = build_data.local_boost[tag]
+						if not arr is Array:
+							arr = [arr]
+						for data in arr:
+							if data["range"] < dist:
+								continue
+							if (b and tag in b.data.tags) or (not b and tag == "water"):
+								get_child(i).display(
+									data["value"],
+									data["min"] + (data["range"]-dist)*data["factor"]
+								)
+					i += 1
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -51,8 +107,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			var snapped := ground_place.world_to_map(get_global_mouse_position())
 			if place_ground(snapped):
 				emit_signal("placed", "ground", null, null)
-		elif building == "destroy":
-			pass
 		elif building != "":
 			var snapped := ground.world_to_map(get_global_mouse_position())
 			var old := place_building(snapped)
@@ -63,6 +117,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var node := get_building(snapped)
 		if node and node.data.can_disable:
 			node.active = !node.active
+			emit_signal("disabled")
 
 
 func get_building(point: Vector2) -> BuildingNode:

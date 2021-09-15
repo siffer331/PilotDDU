@@ -5,11 +5,11 @@
 
 [resource]
 script = ExtResource( 1 )
-cost = 0
+cost = 14
 texture = ExtResource( 2 )
-building = ""
+building = "Eco farm"
 description = ""
-tags = [  ]
+tags = [ "production", "food", "eco_farm" ]
 can_disable = true
 build_stats = {
 "destroy": 0,
@@ -25,24 +25,38 @@ passive_stats = {
 "people": 0,
 "power": 0
 },
-"local_boost": {
-"happyness_max": {
-"factor": 0,
-"min": 0,
-"range": 2,
-"tag": "suburban"
-}
-},
 "using": {
-"people": 0,
+"people": 4,
 "power": 0
+}
+}
+local_boost = {
+}
+production_boost = {
+"eco_farm": {
+"factor": 0,
+"min": 1,
+"range": 1,
+"value": "food"
+},
+"farm": {
+"factor": 0,
+"min": -3,
+"range": 1,
+"value": "food"
+},
+"water": {
+"factor": 0,
+"min": 2,
+"range": 1,
+"value": "food"
 }
 }
 turn_stat = {
 "properties": {
-"food": 0,
-"money": 0,
-"polution": 0,
-"water": 0
+"food": 4,
+"money": 4,
+"polution": -4,
+"water": -4
 }
 }

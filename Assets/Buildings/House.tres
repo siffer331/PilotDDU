@@ -5,11 +5,11 @@
 
 [resource]
 script = ExtResource( 1 )
-cost = 5
+cost = 16
 texture = ExtResource( 2 )
 building = "house"
 description = "A simple suburban house."
-tags = [ "suburban" ]
+tags = [ "suburban1", "suburban2" ]
 can_disable = true
 build_stats = {
 "properties": {
@@ -20,28 +20,30 @@ build_stats = {
 }
 passive_stats = {
 "generating": {
-"happyness": 2,
-"people": 4,
+"happyness": 18,
+"people": 6,
 "power": 0
-},
-"local_boost": {
-"happyness_max": {
-"factor": 0,
-"min": 2,
-"range": 1,
-"tag": "suburban"
-}
 },
 "using": {
 "people": 0,
-"power": 2
+"power": 6
 }
+}
+local_boost = {
+"suburban1": {
+"factor": 1,
+"min": 1,
+"range": 2,
+"value": "happyness_max"
+}
+}
+production_boost = {
 }
 turn_stat = {
 "properties": {
-"food": -2,
-"money": 4,
-"polution": 2,
-"water": -2
+"food": -6,
+"money": 3,
+"polution": 10,
+"water": -6
 }
 }

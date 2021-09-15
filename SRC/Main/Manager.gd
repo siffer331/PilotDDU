@@ -12,7 +12,11 @@ export var day_label_path: NodePath
 export var ui_paths: Dictionary
 export var buildings_path: NodePath
 export var popup_path: NodePath
+export var end_path: NodePath
+export var end_score_path: NodePath
 
+onready var end_score: Label = get_node(end_score_path)
+onready var end: Control = get_node(end_path)
 onready var popup: Popup = get_node(popup_path)
 onready var buildings := get_node(buildings_path)
 onready var menu_split = get_node(menu_split_path)
@@ -44,7 +48,7 @@ var day := 1
 
 var selected: Control = null
 var selected_menu := -1
-var ground := 2 setget _set_ground
+var ground := 0 setget _set_ground
 
 
 func _ready() -> void:
@@ -85,24 +89,25 @@ func calculate_passive() -> void:
 			passive[key+"_max"] += building.data.passive_stats["generating"][key]
 		for key in building.data.passive_stats["using"]:
 			passive[key+"_used"] += building.data.passive_stats["using"][key]
-		if not "local_boost" in building.data.passive_stats:
-			continue
 		#Calculate boosts
 		var pos = string_to_vec(building.name)
-		for local_bonus in building.data.passive_stats["local_boost"]:
-			var data = building.data.passive_stats["local_boost"][local_bonus]
-			for x in range(-data["range"], data["range"]+1):
-				for y in range(-data["range"], data["range"]+1):
-					var p := Vector3(x, y, -x-y)
-					if (x == 0 and y == 0) or abs(p.z) > data["range"]:
-						continue
-					if buildings.has_node(vec_to_string(p+pos)):
-						var node: BuildingNode = buildings.get_node(vec_to_string(p+pos))
-						if data["tag"] in node.data.tags:
-							var dist = max(abs(p.x), max(abs(p.y), abs(p.z)))
-							passive[local_bonus] += (
-								data["min"] + (data["range"]-dist)*data["factor"]
-							)
+		for tag in building.data.local_boost:
+			var arr = building.data.local_boost[tag]
+			if not arr is Array:
+				arr = [arr]
+			for data in arr:
+				for x in range(-data["range"], data["range"]+1):
+					for y in range(-data["range"], data["range"]+1):
+						var p := Vector3(x, y, -x-y)
+						if (x == 0 and y == 0) or abs(p.z) > data["range"]:
+							continue
+						if buildings.has_node(vec_to_string(p+pos)):
+							var node: BuildingNode = buildings.get_node(vec_to_string(p+pos))
+							if tag in node.data.tags:
+								var dist = max(abs(p.x), max(abs(p.y), abs(p.z)))
+								passive[data["value"]] += (
+									data["min"] + (data["range"]-dist)*data["factor"]
+								)
 
 
 func draw_ui() -> void:
@@ -115,12 +120,14 @@ func draw_ui() -> void:
 		data[key] = passive[key]
 	for value in data:
 		var val = data[value]
-		if value in passive:
-			val += passive[value]
 		get_node(ui_paths[value]).text = str(val)
 
 
 func _on_NexTurn_pressed() -> void:
+	if day == 49:
+		end.show()
+		end_score.text = str(score)
+	calculate_passive()
 	var old := resources.duplicate()
 	for building in buildings.get_children():
 		building = building as BuildingNode
@@ -128,9 +135,32 @@ func _on_NexTurn_pressed() -> void:
 			continue
 		for data in building.data.turn_stat["properties"]:
 			resources[data] += building.data.turn_stat["properties"][data]
+		#Calculate boosts
+		var pos = string_to_vec(building.name)
+		for tag in building.data.production_boost:
+			var data = building.data.production_boost[tag]
+			for x in range(-data["range"], data["range"]+1):
+				for y in range(-data["range"], data["range"]+1):
+					var p := Vector3(x, y, -x-y)
+					if (x == 0 and y == 0) or abs(p.z) > data["range"]:
+						continue
+					var dist = max(abs(p.x), max(abs(p.y), abs(p.z)))
+					if buildings.has_node(vec_to_string(p+pos)):
+						var node: BuildingNode = buildings.get_node(vec_to_string(p+pos))
+						if tag in node.data.tags:
+							resources[data["value"]] += (
+								data["min"] + (data["range"]-dist)*data["factor"]
+							)
+					elif tag == "water":
+						resources[data["value"]] += (
+							data["min"] + (data["range"]-dist)*data["factor"]
+						)
+	
 	var succesfull = true
 	if resources["polution"] < 0:
 		resources["polution"] = 0
+	if resources["polution"] > 200:
+		resources["polution"] = 200
 	for data in resources:
 		if resources[data] < 0:
 			succesfull = false
@@ -143,6 +173,7 @@ func _on_NexTurn_pressed() -> void:
 		resources = old
 		popup.popup()
 	else:
+		score += floor((passive.happyness_max*20/(resources.polution+1))/200)*5
 		for building in buildings.get_children():
 			building = building as BuildingNode
 			if building.active:
@@ -179,7 +210,7 @@ func _on_Builder_placed(placed: String, data: Building, old: Building) -> void:
 	else:
 		for property in data.build_stats["properties"]:
 			resources[property] += data.build_stats["properties"][property]
-		resources.money -= data.cost
+		resources.money -= data.cost - old.cost*2/3
 	if not can_afford(placed):
 		selected.hide()
 		selected = null
@@ -204,7 +235,7 @@ func _on_Menu_pressed(menu: int) -> void:
 		selected_menu = -1
 
 
-func string_to_vec(val: String) -> Vector3:
+static func string_to_vec(val: String) -> Vector3:
 	var res := Vector3(0,0,0)
 	var k := val.split("_")
 	res.x = float(k[0])
@@ -213,12 +244,11 @@ func string_to_vec(val: String) -> Vector3:
 	return res
 
 
-func vec_to_string(val: Vector3) -> String:
+static func vec_to_string(val: Vector3) -> String:
 	return str(int(val.x)) + "_" + str(int(val.y)) + "_" + str(int(val.z))
 
 
 func _on_Builder_disabled() -> void:
 	calculate_passive()
 	draw_ui()
-
 

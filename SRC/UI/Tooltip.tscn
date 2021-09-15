@@ -1,0 +1,318 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Assets/Icons/Water.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Icons/Food.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Icons/Power.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/Pixelated.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/Icons/Money2.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Icons/Polution.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Icons/People.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Icons/Happynes.png" type="Texture" id=8]
+[ext_resource path="res://SRC/UI/Tooltip.gd" type="Script" id=9]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.176471, 0.156863, 0.32549, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.141176, 0.12549, 0.270588, 1 )
+corner_detail = 1
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="DynamicFont" id=2]
+size = 8
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.141176, 0.12549, 0.270588, 1 )
+border_width_top = 1
+border_color = Color( 0.141176, 0.12549, 0.270588, 1 )
+
+[node name="Tooltip" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -485.0
+margin_bottom = -266.0
+rect_min_size = Vector2( 60, 0 )
+custom_constants/margin_right = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+red = Color( 0.858824, 0.152941, 0.152941, 1 )
+green = Color( 0.427451, 0.858824, 0.309804, 1 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 58.0
+margin_bottom = 20.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Split" type="VBoxContainer" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 58.0
+margin_bottom = 20.0
+custom_constants/separation = 0
+
+[node name="Building" type="Label" parent="Split"]
+margin_right = 56.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "Hat"
+valign = 1
+
+[node name="Cost" type="HBoxContainer" parent="Split"]
+margin_top = 9.0
+margin_right = 56.0
+margin_bottom = 18.0
+
+[node name="Cost" type="Label" parent="Split/Cost"]
+margin_right = 17.0
+margin_bottom = 9.0
+custom_fonts/font = SubResource( 2 )
+text = "Cost:"
+valign = 1
+
+[node name="Label" type="Label" parent="Split/Cost"]
+margin_left = 21.0
+margin_right = 56.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "20"
+align = 2
+valign = 1
+
+[node name="Separator0" type="HSeparator" parent="Split"]
+visible = false
+margin_top = 18.0
+margin_right = 48.0
+margin_bottom = 19.0
+custom_styles/separator = SubResource( 3 )
+custom_constants/separation = 1
+
+[node name="Money" type="HBoxContainer" parent="Split"]
+visible = false
+margin_top = 18.0
+margin_right = 56.0
+margin_bottom = 27.0
+
+[node name="Icon" type="TextureRect" parent="Split/Money"]
+margin_right = 9.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 9, 9 )
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Split/Money"]
+margin_left = 13.0
+margin_right = 56.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "20"
+align = 2
+valign = 1
+
+[node name="Separator1" type="HSeparator" parent="Split"]
+visible = false
+margin_top = 18.0
+margin_right = 48.0
+margin_bottom = 19.0
+custom_styles/separator = SubResource( 3 )
+custom_constants/separation = 1
+
+[node name="Power" type="HBoxContainer" parent="Split"]
+visible = false
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 19.0
+
+[node name="Icon" type="TextureRect" parent="Split/Power"]
+margin_right = 9.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 9, 9 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Split/Power"]
+margin_left = 13.0
+margin_right = 48.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "20"
+align = 2
+valign = 1
+
+[node name="Separator2" type="HSeparator" parent="Split"]
+visible = false
+margin_top = 19.0
+margin_right = 48.0
+margin_bottom = 20.0
+custom_styles/separator = SubResource( 3 )
+custom_constants/separation = 1
+
+[node name="People" type="HBoxContainer" parent="Split"]
+visible = false
+margin_top = 11.0
+margin_right = 48.0
+margin_bottom = 20.0
+
+[node name="Icon" type="TextureRect" parent="Split/People"]
+margin_right = 9.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 9, 9 )
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Split/People"]
+margin_left = 13.0
+margin_right = 48.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "20"
+align = 2
+valign = 1
+
+[node name="Separator3" type="HSeparator" parent="Split"]
+visible = false
+margin_top = 19.0
+margin_right = 48.0
+margin_bottom = 20.0
+custom_styles/separator = SubResource( 3 )
+custom_constants/separation = 1
+
+[node name="Water" type="HBoxContainer" parent="Split"]
+visible = false
+margin_top = 12.0
+margin_right = 48.0
+margin_bottom = 21.0
+
+[node name="Icon" type="TextureRect" parent="Split/Water"]
+margin_right = 9.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 9, 9 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Split/Water"]
+margin_left = 13.0
+margin_right = 48.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "20"
+align = 2
+valign = 1
+
+[node name="Separator4" type="HSeparator" parent="Split"]
+visible = false
+margin_top = 19.0
+margin_right = 48.0
+margin_bottom = 20.0
+custom_styles/separator = SubResource( 3 )
+custom_constants/separation = 1
+
+[node name="Meat" type="HBoxContainer" parent="Split"]
+visible = false
+margin_top = 13.0
+margin_right = 48.0
+margin_bottom = 22.0
+
+[node name="Icon" type="TextureRect" parent="Split/Meat"]
+margin_right = 9.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 9, 9 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Split/Meat"]
+margin_left = 13.0
+margin_right = 48.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "20"
+align = 2
+valign = 1
+
+[node name="Separator5" type="HSeparator" parent="Split"]
+visible = false
+margin_top = 19.0
+margin_right = 48.0
+margin_bottom = 20.0
+custom_styles/separator = SubResource( 3 )
+custom_constants/separation = 1
+
+[node name="Pollution" type="HBoxContainer" parent="Split"]
+visible = false
+margin_top = 14.0
+margin_right = 48.0
+margin_bottom = 23.0
+
+[node name="Icon" type="TextureRect" parent="Split/Pollution"]
+margin_right = 9.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 9, 9 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Split/Pollution"]
+margin_left = 13.0
+margin_right = 48.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "20"
+align = 2
+valign = 1
+
+[node name="Separator6" type="HSeparator" parent="Split"]
+visible = false
+margin_top = 19.0
+margin_right = 48.0
+margin_bottom = 20.0
+custom_styles/separator = SubResource( 3 )
+custom_constants/separation = 1
+
+[node name="Happiness" type="HBoxContainer" parent="Split"]
+visible = false
+margin_top = 15.0
+margin_right = 48.0
+margin_bottom = 24.0
+
+[node name="Icon" type="TextureRect" parent="Split/Happiness"]
+margin_right = 9.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 9, 9 )
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Split/Happiness"]
+margin_left = 13.0
+margin_right = 48.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "20"
+align = 2
+valign = 1

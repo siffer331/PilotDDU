@@ -29,11 +29,15 @@ passive_stats = {
 "power": 0
 }
 }
+local_boost = {
+}
+production_boost = {
+}
 turn_stat = {
 "properties": {
 "food": 0,
 "money": 0,
-"polution": 0,
+"polution": -5,
 "water": 0
 }
 }

@@ -5,13 +5,14 @@
 
 [resource]
 script = ExtResource( 1 )
-cost = 10
+cost = 20
 texture = ExtResource( 2 )
-building = "Forrest"
+building = "Park"
 description = "A small patch off trees. Good for the environment and locals."
 tags = [  ]
-can_disable = false
+can_disable = true
 build_stats = {
+"destroy": 0,
 "properties": {
 "food": 0,
 "polution": 0,
@@ -19,26 +20,30 @@ build_stats = {
 }
 }
 passive_stats = {
-"local_boost": {
-"happyness_max": {
-"factor": 2,
-"min": 2,
-"range": 2,
-"tag": "suburban"
-}
-},
-"properties": {
+"generating": {
 "happyness": 0,
-"money": 0,
 "people": 0,
-"power_max": 0,
-"power_used": 0
+"power": 0
+},
+"using": {
+"people": 0,
+"power": 0
 }
+}
+local_boost = {
+"suburban2": {
+"factor": 2,
+"min": 4,
+"range": 2,
+"value": "happyness_max"
+}
+}
+production_boost = {
 }
 turn_stat = {
 "properties": {
 "food": 0,
-"polution": -4,
+"polution": -16,
 "water": 0
 }
 }

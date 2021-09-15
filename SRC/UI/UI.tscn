@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Assets/UI/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/Icons/Power.png" type="Texture" id=2]
@@ -32,6 +32,8 @@
 [ext_resource path="res://Assets/Icons/Building/Boosts/HospitalIcon.png" type="Texture" id=30]
 [ext_resource path="res://Assets/Icons/Building/Resources/FarmIcon.png" type="Texture" id=31]
 [ext_resource path="res://Assets/Icons/Building/Boosts/PowerPlantIcon.png" type="Texture" id=32]
+[ext_resource path="res://SRC/UI/BuildingButton.gd" type="Script" id=33]
+[ext_resource path="res://SRC/UI/Back.tscn" type="PackedScene" id=34]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.227451, 0.211765, 0.368627, 1 )
@@ -673,11 +675,13 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu1/Appartment"]
 visible = false
 margin_right = 30.0
 margin_bottom = 33.0
+mouse_filter = 2
 texture = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -688,6 +692,7 @@ margin_left = 1.0
 margin_top = 3.0
 margin_right = 31.0
 margin_bottom = 36.0
+mouse_filter = 2
 texture = ExtResource( 25 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -705,6 +710,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu1/House"]
 visible = false
@@ -737,6 +743,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu1/Villa"]
 visible = false
@@ -771,6 +778,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Coal"]
 visible = false
@@ -802,6 +810,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Solarpanels"]
 visible = false
@@ -833,6 +842,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu2/Windmill"]
 visible = false
@@ -867,6 +877,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/Livestock"]
 visible = false
@@ -898,6 +909,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/Farm"]
 visible = false
@@ -930,6 +942,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/EcoFarm"]
 visible = false
@@ -962,6 +975,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu3/WaterCleaning"]
 visible = false
@@ -996,6 +1010,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/Park"]
 visible = false
@@ -1028,6 +1043,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/Hospital"]
 visible = false
@@ -1060,6 +1076,7 @@ margin_bottom = 33.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
+script = ExtResource( 33 )
 
 [node name="Selected" type="TextureRect" parent="BuildingMenu/Menu/Margin/Menu4/PowerPlant"]
 visible = false
@@ -1135,3 +1152,50 @@ custom_fonts/font = SubResource( 4 )
 text = "You use too many resources
 try disabling buildings."
 align = 1
+
+[node name="End" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="End"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.223529, 0.223529, 0.223529, 0.156863 )
+
+[node name="Center" type="CenterContainer" parent="End"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Split" type="VBoxContainer" parent="End/Center"]
+margin_left = 171.0
+margin_top = 113.0
+margin_right = 341.0
+margin_bottom = 174.0
+
+[node name="Label" type="Label" parent="End/Center/Split"]
+margin_right = 170.0
+margin_bottom = 39.0
+text = "The end
+You managed a score of:"
+align = 1
+valign = 1
+
+[node name="Score" type="Label" parent="End/Center/Split"]
+margin_top = 43.0
+margin_right = 170.0
+margin_bottom = 61.0
+align = 1
+valign = 1
+
+[node name="Back" parent="End" instance=ExtResource( 34 )]
+margin_left = 467.0
+margin_top = 244.0
+margin_right = 507.0
+margin_bottom = 284.0

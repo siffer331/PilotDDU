@@ -1,13 +1,15 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://SRC/Building/Building.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Icons/Building/Power/Coal.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
-cost = 10
+cost = 30
+texture = ExtResource( 2 )
 building = "Coal generator plant"
 description = "Generates power from coal in the ground but generates a lot of polution."
-tags = [ "Power" ]
+tags = [ "power" ]
 can_disable = true
 build_stats = {
 "destroy": 0,
@@ -21,20 +23,28 @@ passive_stats = {
 "generating": {
 "happyness": 0,
 "people": 0,
-"power": 8
-},
-"local_boost": {
+"power": 80
 },
 "using": {
-"people": 2,
+"people": 8,
 "power": 0
 }
+}
+local_boost = {
+"suburban2": {
+"factor": -1,
+"min": -2,
+"range": 4,
+"value": "happyness_max"
+}
+}
+production_boost = {
 }
 turn_stat = {
 "properties": {
 "food": 0,
-"money": 0,
-"polution": 0,
+"money": 4,
+"polution": 40,
 "water": 0
 }
 }

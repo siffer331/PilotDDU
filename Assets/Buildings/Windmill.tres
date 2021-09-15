@@ -1,19 +1,21 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://SRC/Building/Building.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Icons/Building/Power/Windmill.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
-cost = 0
-building = ""
+cost = 20
+texture = ExtResource( 2 )
+building = "windmill"
 description = ""
-tags = [  ]
+tags = [ "power", "windmill" ]
 can_disable = true
 build_stats = {
 "destroy": 0,
 "properties": {
 "food": 0,
-"polution": 0,
+"polution": 40,
 "water": 0
 }
 }
@@ -21,25 +23,39 @@ passive_stats = {
 "generating": {
 "happyness": 0,
 "people": 0,
-"power": 0
-},
-"local_boost": {
-"happyness_max": {
-"factor": 0,
-"min": 0,
-"range": 2,
-"tag": "suburban"
-}
+"power": 30
 },
 "using": {
-"people": 0,
+"people": 3,
 "power": 0
+}
+}
+local_boost = {
+"suburban2": {
+"factor": 1,
+"min": -4,
+"range": 2,
+"value": "happyness_max"
+},
+"windmill": {
+"factor": 0,
+"min": 1,
+"range": 1,
+"value": "power_max"
+}
+}
+production_boost = {
+"water": {
+"factor": 0,
+"min": 1,
+"range": 2,
+"value": "polution"
 }
 }
 turn_stat = {
 "properties": {
 "food": 0,
-"money": 0,
+"money": -3,
 "polution": 0,
 "water": 0
 }

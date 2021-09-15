@@ -33,19 +33,26 @@ _global_script_classes=[ {
 "class": "MoveableCamera",
 "language": "GDScript",
 "path": "res://SRC/Misc/Camera.gd"
+}, {
+"base": "MarginContainer",
+"class": "Tooltip",
+"language": "GDScript",
+"path": "res://SRC/UI/Tooltip.gd"
 } ]
 _global_script_class_icons={
 "Builder": "",
 "Building": "",
 "BuildingNode": "",
 "Manager": "",
-"MoveableCamera": ""
+"MoveableCamera": "",
+"Tooltip": ""
 }
 
 [application]
 
 config/name="PilotDDU"
-run/main_scene="res://SRC/Main/Main.tscn"
+run/main_scene="res://SRC/Main/MainMenu.tscn"
+run/disable_stdout=true
 config/icon="res://icon.png"
 
 [display]
@@ -53,6 +60,7 @@ config/icon="res://icon.png"
 window/size/width=512
 window/size/height=288
 mouse_cursor/custom_image="res://Assets/Icons/Cursor.png"
+mouse_cursor/tooltip_position_offset=Vector2( 10, 0 )
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
 
@@ -63,6 +71,7 @@ cursor=false
 [gui]
 
 theme/custom="res://Assets/UI/Theme.tres"
+timers/tooltip_delay_sec=0.0
 
 [importer_defaults]
 

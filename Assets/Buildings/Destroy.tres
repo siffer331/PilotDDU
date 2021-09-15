@@ -12,7 +12,7 @@ description = "Temporary constructtion while removing a building "
 tags = [  ]
 can_disable = false
 build_stats = {
-"destroy": 2,
+"destroy": 1,
 "properties": {
 "food": 0,
 "polution": 0,
@@ -25,18 +25,14 @@ passive_stats = {
 "people": 0,
 "power": 0
 },
-"local_boost": {
-"happyness_max": {
-"factor": 0,
-"min": -2,
-"range": 2,
-"tag": "suburban"
-}
-},
 "using": {
 "people": 0,
 "power": 0
 }
+}
+local_boost = {
+}
+production_boost = {
 }
 turn_stat = {
 "properties": {

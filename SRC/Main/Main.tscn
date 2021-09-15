@@ -150,7 +150,7 @@ current = true
 script = ExtResource( 4 )
 
 [node name="Builder" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.403922 )
+self_modulate = Color( 1, 1, 1, 0.431373 )
 script = ExtResource( 5 )
 
 [node name="Manager" type="Node" parent="."]
@@ -178,6 +178,8 @@ ui_paths = {
 }
 buildings_path = NodePath("../Buildings")
 popup_path = NodePath("../Canvas/UI/Center/Popup")
+end_path = NodePath("../Canvas/UI/End")
+end_score_path = NodePath("../Canvas/UI/End/Center/Split/Score")
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 
@@ -195,6 +197,58 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Appartment" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu1" index="0"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/Appartment.tres"
+
+[node name="House" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu1" index="2"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/House.tres"
+
+[node name="Villa" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu1" index="4"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/Villa.tres"
+
+[node name="Coal" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu2" index="0"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/Coal.tres"
+
+[node name="Solarpanels" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu2" index="2"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/SolarPanel.tres"
+
+[node name="Windmill" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu2" index="4"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/Windmill.tres"
+
+[node name="Livestock" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu3" index="0"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/Livestock.tres"
+
+[node name="Farm" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu3" index="2"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/Farm.tres"
+
+[node name="EcoFarm" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu3" index="4"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/EcoFarm.tres"
+
+[node name="WaterCleaning" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu3" index="6"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/WaterCleaner.tres"
+
+[node name="Park" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu4" index="0"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/Trees.tres"
+
+[node name="Hospital" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu4" index="2"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/Hospital.tres"
+
+[node name="PowerPlant" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu4" index="4"]
+hint_tooltip = "1"
+data_path = "res://Assets/Buildings/PowerPlant.tres"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Day = SubResource( 4 )
 
@@ -207,6 +261,18 @@ anims/Day = SubResource( 4 )
 [connection signal="pressed" from="Canvas/UI/Split/Bottom/Margin/Split/Ground" to="Manager" method="_on_Placeable_pressed" binds= [ "ground", "../Canvas/UI/Split/Bottom/Margin/Split/Ground/Selected" ]]
 [connection signal="pressed" from="Canvas/UI/Split/Bottom/Margin/Split/Destroy" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Destroy.tres", "../Canvas/UI/Split/Bottom/Margin/Split/Destroy/Selected" ]]
 [connection signal="pressed" from="Canvas/UI/Split/Bottom/Margin/Split/NexTurn" to="Manager" method="_on_NexTurn_pressed"]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu1/Appartment" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Appartment.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu1/Appartment/Selected" ]]
 [connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu1/House" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/House.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu1/House/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu1/Villa" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Villa.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu1/Villa/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu2/Coal" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Coal.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu2/Coal/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu2/Solarpanels" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/SolarPanel.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu2/Solarpanels/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu2/Windmill" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Windmill.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu2/Windmill/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu3/Livestock" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Livestock.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu3/Livestock/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu3/Farm" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Farm.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu3/Farm/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu3/EcoFarm" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/EcoFarm.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu3/EcoFarm/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu3/WaterCleaning" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/WaterCleaner.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu3/WaterCleaning/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu4/Park" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Trees.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu4/Park/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu4/Hospital" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/Hospital.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu4/Hospital/Selected" ]]
+[connection signal="pressed" from="Canvas/UI/BuildingMenu/Menu/Margin/Menu4/PowerPlant" to="Manager" method="_on_Placeable_pressed" binds= [ "res://Assets/Buildings/PowerPlant.tres", "../Canvas/UI/BuildingMenu/Menu/Margin/Menu4/PowerPlant/Selected" ]]
 
 [editable path="Canvas/UI"]
