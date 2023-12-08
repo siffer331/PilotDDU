@@ -35,9 +35,30 @@ texture = ExtResource( 2 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+margin_left = 330.0
+margin_top = -17.0
+margin_right = 494.0
+margin_bottom = 153.0
+color = Color( 0.054902, 0.0470588, 0.0470588, 0.427451 )
+
+[node name="Label" type="Label" parent="CanvasLayer/ColorRect"]
+margin_left = 7.0
+margin_top = 17.0
+margin_right = 157.0
+margin_bottom = 160.0
+text = "Lets
+play a game.
+Get a score of 2500
+before the day is over
+to get a treat.
+OR ELSE."
+
 [node name="Control" type="Control" parent="CanvasLayer"]
-margin_right = 512.0
-margin_bottom = 288.0
+margin_left = 13.0
+margin_top = -48.0
+margin_right = 525.0
+margin_bottom = 240.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

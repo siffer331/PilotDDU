@@ -43,9 +43,6 @@ custom_constants/margin_top = 2
 custom_constants/margin_left = 2
 custom_constants/margin_bottom = 2
 script = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 red = Color( 0.858824, 0.152941, 0.152941, 1 )
 green = Color( 0.427451, 0.858824, 0.309804, 1 )
 
@@ -98,8 +95,8 @@ visible = false
 margin_top = 18.0
 margin_right = 48.0
 margin_bottom = 19.0
-custom_styles/separator = SubResource( 3 )
 custom_constants/separation = 1
+custom_styles/separator = SubResource( 3 )
 
 [node name="Money" type="HBoxContainer" parent="Split"]
 visible = false
@@ -130,8 +127,8 @@ visible = false
 margin_top = 18.0
 margin_right = 48.0
 margin_bottom = 19.0
-custom_styles/separator = SubResource( 3 )
 custom_constants/separation = 1
+custom_styles/separator = SubResource( 3 )
 
 [node name="Power" type="HBoxContainer" parent="Split"]
 visible = false
@@ -162,8 +159,8 @@ visible = false
 margin_top = 19.0
 margin_right = 48.0
 margin_bottom = 20.0
-custom_styles/separator = SubResource( 3 )
 custom_constants/separation = 1
+custom_styles/separator = SubResource( 3 )
 
 [node name="People" type="HBoxContainer" parent="Split"]
 visible = false
@@ -194,8 +191,8 @@ visible = false
 margin_top = 19.0
 margin_right = 48.0
 margin_bottom = 20.0
-custom_styles/separator = SubResource( 3 )
 custom_constants/separation = 1
+custom_styles/separator = SubResource( 3 )
 
 [node name="Water" type="HBoxContainer" parent="Split"]
 visible = false
@@ -226,8 +223,8 @@ visible = false
 margin_top = 19.0
 margin_right = 48.0
 margin_bottom = 20.0
-custom_styles/separator = SubResource( 3 )
 custom_constants/separation = 1
+custom_styles/separator = SubResource( 3 )
 
 [node name="Meat" type="HBoxContainer" parent="Split"]
 visible = false
@@ -258,8 +255,8 @@ visible = false
 margin_top = 19.0
 margin_right = 48.0
 margin_bottom = 20.0
-custom_styles/separator = SubResource( 3 )
 custom_constants/separation = 1
+custom_styles/separator = SubResource( 3 )
 
 [node name="Pollution" type="HBoxContainer" parent="Split"]
 visible = false
@@ -290,8 +287,8 @@ visible = false
 margin_top = 19.0
 margin_right = 48.0
 margin_bottom = 20.0
-custom_styles/separator = SubResource( 3 )
 custom_constants/separation = 1
+custom_styles/separator = SubResource( 3 )
 
 [node name="Happiness" type="HBoxContainer" parent="Split"]
 visible = false

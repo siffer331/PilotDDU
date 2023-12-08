@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Assets/UI/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/Icons/Power.png" type="Texture" id=2]
@@ -34,6 +34,7 @@
 [ext_resource path="res://Assets/Icons/Building/Boosts/PowerPlantIcon.png" type="Texture" id=32]
 [ext_resource path="res://SRC/UI/BuildingButton.gd" type="Script" id=33]
 [ext_resource path="res://SRC/UI/Back.tscn" type="PackedScene" id=34]
+[ext_resource path="res://SRC/UI/Pause.gd" type="Script" id=35]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.227451, 0.211765, 0.368627, 1 )
@@ -62,9 +63,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 theme = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Split" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -109,6 +107,12 @@ rect_min_size = Vector2( 20, 0 )
 text = "23"
 align = 1
 valign = 1
+
+[node name="Change" type="Label" parent="Split/Top/Split/Money"]
+margin_left = -8.0
+margin_top = 18.0
+margin_right = 21.0
+margin_bottom = 36.0
 
 [node name="Spacer2" type="ColorRect" parent="Split/Top/Split"]
 margin_left = 41.0
@@ -219,6 +223,12 @@ text = "5"
 align = 1
 valign = 1
 
+[node name="Change" type="Label" parent="Split/Top/Split/Water"]
+margin_left = -8.0
+margin_top = 18.0
+margin_right = 19.0
+margin_bottom = 36.0
+
 [node name="Spacer5" type="ColorRect" parent="Split/Top/Split"]
 margin_left = 218.0
 margin_right = 221.0
@@ -241,6 +251,12 @@ text = "13"
 align = 1
 valign = 1
 
+[node name="Change" type="Label" parent="Split/Top/Split/Food"]
+margin_left = -8.0
+margin_top = 18.0
+margin_right = 19.0
+margin_bottom = 36.0
+
 [node name="Spacer6" type="ColorRect" parent="Split/Top/Split"]
 margin_left = 260.0
 margin_right = 263.0
@@ -259,9 +275,16 @@ margin_left = 282.0
 margin_right = 300.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 18, 0 )
+rect_pivot_offset = Vector2( -136, 52 )
 text = "5"
 align = 1
 valign = 1
+
+[node name="Change" type="Label" parent="Split/Top/Split/Polution"]
+margin_left = -8.0
+margin_top = 18.0
+margin_right = 19.0
+margin_bottom = 36.0
 
 [node name="Spacer7" type="ColorRect" parent="Split/Top/Split"]
 margin_left = 301.0
@@ -350,6 +373,12 @@ rect_min_size = Vector2( 30, 0 )
 text = "50"
 align = 1
 valign = 1
+
+[node name="Change" type="Label" parent="Split/Top/Split/Score"]
+margin_left = -3.0
+margin_top = 18.0
+margin_right = 29.0
+margin_bottom = 36.0
 
 [node name="Space" type="Control" parent="Split"]
 margin_top = 22.0
@@ -1152,6 +1181,47 @@ custom_fonts/font = SubResource( 4 )
 text = "You use too many resources
 try disabling buildings."
 align = 1
+
+[node name="Pause" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 35 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Pause"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.223529, 0.223529, 0.223529, 0.156863 )
+
+[node name="Center" type="CenterContainer" parent="Pause"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Split" type="VBoxContainer" parent="Pause/Center"]
+margin_left = 171.0
+margin_top = 113.0
+margin_right = 341.0
+margin_bottom = 174.0
+
+[node name="Label" type="Label" parent="Pause/Center/Split"]
+margin_right = 170.0
+margin_bottom = 39.0
+text = "PAUSED
+Escape to resume"
+align = 1
+valign = 1
+
+[node name="Back" parent="Pause" instance=ExtResource( 34 )]
+margin_left = 467.0
+margin_top = 244.0
+margin_right = 507.0
+margin_bottom = 284.0
 
 [node name="End" type="Control" parent="."]
 visible = false

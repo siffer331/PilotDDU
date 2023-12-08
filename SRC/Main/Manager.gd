@@ -14,6 +14,8 @@ export var buildings_path: NodePath
 export var popup_path: NodePath
 export var end_path: NodePath
 export var end_score_path: NodePath
+export var red: Color
+export var green: Color
 
 onready var end_score: Label = get_node(end_score_path)
 onready var end: Control = get_node(end_path)
@@ -35,6 +37,13 @@ var resources := {
 	"polution": 0,
 }
 
+var change := {
+	"money": 0,
+	"food": 0,
+	"water": 0,
+	"polution": 0,
+}
+
 var passive := {
 	"power_used": 0,
 	"power_max": 0,
@@ -42,6 +51,7 @@ var passive := {
 	"people_max": 0,
 	"people_used": 0,
 }
+
 
 var score := 0
 var day := 1
@@ -120,21 +130,33 @@ func draw_ui() -> void:
 		data[key] = passive[key]
 	for value in data:
 		var val = data[value]
-		get_node(ui_paths[value]).text = str(val)
+		var node = get_node(ui_paths[value])
+		node.text = str(val)
+		if value in change:
+			var change_node = node.get_child(0)
+			if change[value] > 0:
+				change_node.text = "+" + str(change[value])
+			else:
+				change_node.text = str(change[value])
+			var v = change[value]
+			if value == "polution":
+				v *= -1
+			if v < 0:
+				change_node.modulate = red
+			elif v > 0:
+				change_node.modulate = green
+			else:
+				change_node.modulate = Color.white
 
-
-func _on_NexTurn_pressed() -> void:
-	if day == 49:
-		end.show()
-		end_score.text = str(score)
-	calculate_passive()
-	var old := resources.duplicate()
+func calculate_change() -> void:
+	for x in change:
+		change[x] = 0
 	for building in buildings.get_children():
 		building = building as BuildingNode
 		if not building.active:
 			continue
 		for data in building.data.turn_stat["properties"]:
-			resources[data] += building.data.turn_stat["properties"][data]
+			change[data] += building.data.turn_stat["properties"][data]
 		#Calculate boosts
 		var pos = string_to_vec(building.name)
 		for tag in building.data.production_boost:
@@ -148,21 +170,30 @@ func _on_NexTurn_pressed() -> void:
 					if buildings.has_node(vec_to_string(p+pos)):
 						var node: BuildingNode = buildings.get_node(vec_to_string(p+pos))
 						if tag in node.data.tags:
-							resources[data["value"]] += (
+							change[data["value"]] += (
 								data["min"] + (data["range"]-dist)*data["factor"]
 							)
 					elif tag == "water":
-						resources[data["value"]] += (
+						change[data["value"]] += (
 							data["min"] + (data["range"]-dist)*data["factor"]
 						)
+	change["polution"] = clamp(change["polution"],-resources["polution"], 200-resources["polution"])
+
+func _on_NexTurn_pressed() -> void:
+	if day == 49:
+		end.show()
+		end_score.text = str(score)
+		if score >= 2500:
+			end_score.text += "\n Please post this result in #fun"
+			var http = get_node("../HTTP")
+			var body = to_json({"msg":"Victory!!!","channel_id":941343285912408166})
+			var error = http.request("http://167.71.38.238:8090/msg ", [], true, HTTPClient.METHOD_POST, body)
+			print(error)
+	calculate_passive()
 	
 	var succesfull = true
-	if resources["polution"] < 0:
-		resources["polution"] = 0
-	if resources["polution"] > 200:
-		resources["polution"] = 200
 	for data in resources:
-		if resources[data] < 0:
+		if resources[data]+change[data] < 0:
 			succesfull = false
 			break
 	for key in ["power", "people"]:
@@ -170,21 +201,22 @@ func _on_NexTurn_pressed() -> void:
 			succesfull = false
 			break
 	if not succesfull:
-		resources = old
 		popup.popup()
-	else:
-		score += floor((passive.happyness_max*20/(resources.polution+1))/200)*5
-		for building in buildings.get_children():
-			building = building as BuildingNode
-			if building.active:
-				building.turn()
-		day += 1
-		day_label.text = "Day " + str(day)
-		animator.play("Day")
-		if day%5 == 0:
-			self.ground += 1
-		calculate_passive()
-		draw_ui()
+		return
+	for data in resources:
+		resources[data] += change[data]
+	score += floor((passive.happyness_max*20/(resources.polution+1))/200)*5
+	for building in buildings.get_children():
+		building = building as BuildingNode
+		if building.active:
+			building.turn()
+	day += 1
+	day_label.text = "Day " + str(day)
+	animator.play("Day")
+	if day%5 == 0:
+		self.ground += 1
+	calculate_passive()
+	draw_ui()
 
 
 func _on_Placeable_pressed(placeable: String, selected_path: String) -> void:
@@ -215,6 +247,7 @@ func _on_Builder_placed(placed: String, data: Building, old: Building) -> void:
 		selected.hide()
 		selected = null
 		builder.building = ""
+	calculate_change()
 	calculate_passive()
 	draw_ui()
 
@@ -249,6 +282,7 @@ static func vec_to_string(val: Vector3) -> String:
 
 
 func _on_Builder_disabled() -> void:
+	calculate_change()
 	calculate_passive()
 	draw_ui()
 

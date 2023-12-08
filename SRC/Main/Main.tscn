@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Assets/Tiles/Ground.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tiles/Water.png" type="Texture" id=2]
@@ -84,6 +84,26 @@
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="Gradient" id=6]
+colors = PoolColorArray( 0.578125, 0.578125, 0.578125, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 2
+emission_box_extents = Vector3( 400, 3, 1 )
+flag_disable_z = true
+spread = 0.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 40.0
+initial_velocity_random = 0.24
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 1.5
+scale_random = 0.1
+color_initial_ramp = SubResource( 7 )
+
 [sub_resource type="Animation" id=4]
 resource_name = "Day"
 tracks/0/type = "value"
@@ -149,6 +169,12 @@ format = 1
 current = true
 script = ExtResource( 4 )
 
+[node name="Particles2D" type="Particles2D" parent="Camera"]
+position = Vector2( 0, -144 )
+amount = 200
+lifetime = 5.0
+process_material = SubResource( 5 )
+
 [node name="Builder" type="Sprite" parent="."]
 self_modulate = Color( 1, 1, 1, 0.431373 )
 script = ExtResource( 5 )
@@ -180,6 +206,8 @@ buildings_path = NodePath("../Buildings")
 popup_path = NodePath("../Canvas/UI/Center/Popup")
 end_path = NodePath("../Canvas/UI/End")
 end_score_path = NodePath("../Canvas/UI/End/Center/Split/Score")
+red = Color( 0.858824, 0.152941, 0.152941, 1 )
+green = Color( 0.427451, 0.858824, 0.309804, 1 )
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 
@@ -193,9 +221,6 @@ margin_right = 281.0
 margin_bottom = 93.0
 rect_scale = Vector2( 4, 4 )
 text = "Day 2"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Appartment" parent="Canvas/UI/BuildingMenu/Menu/Margin/Menu1" index="0"]
 hint_tooltip = "1"
@@ -249,8 +274,16 @@ data_path = "res://Assets/Buildings/Hospital.tres"
 hint_tooltip = "1"
 data_path = "res://Assets/Buildings/PowerPlant.tres"
 
+[node name="Split" parent="Canvas/UI/Pause/Center" index="0"]
+margin_left = 196.0
+margin_top = 124.0
+margin_right = 316.0
+margin_bottom = 163.0
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Day = SubResource( 4 )
+
+[node name="HTTP" type="HTTPRequest" parent="."]
 
 [connection signal="disabled" from="Builder" to="Manager" method="_on_Builder_disabled"]
 [connection signal="placed" from="Builder" to="Manager" method="_on_Builder_placed"]
